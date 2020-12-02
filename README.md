@@ -2,55 +2,24 @@
 
 ## users table
 
-| Column  | Type   | Options                              |
-|---------|--------|--------------------------------------|
-|nickname | string | null:false                           |
-|password | string | null:false                           |
-|email    | string | null:false, unique:true, index:true  |
+| Column             | Type   | Options                              |
+|--------------------|--------|--------------------------------------|
+| nickname           | string | null:false                           |
+| encrypted_password | string | null:false                           |
+| email              | string | null:false, unique:true, index:true  |
+| first_name         | string | null:false                           |
+| family_name        | string | null:false                           |
+| first_name_kana    | string | null:false                           |
+| family_name_kana   | string | null:false                           |
+| strftime           | date   | null:false                           |
 
 ### Association
 
-* has_many:comments, dependent: :destroy
 * has_many:favorites, dependent: :destroy
-* has_many:todo_lists
 * has_many:user_evaluations
 * has_many:seller_items, foreign_key: "seller_id", class_name: "items"
 * has_many:buyer_items, foreign_key: "buyer_id", class_name: "items"
-* has_one:point
-* has_one:profile, dependent: :destroy
-* has_one:sns_authentication, dependent: :destroy
 * has_one:sending_destination, dependent: :destroy
-* has_one:credit_card, dependent: :destroy
-
- ## profiles table
-
-| Column                              | Type       | Options           |
-|-------------------------------------|------------|-------------------|
-| first_name                          | string     | null:false        |
-| family_name                         | string     | null:false        |
-| first_name_kana                     | string     | null:false        |
-| family_name_kana                    | string     | null:false        |
-| birth_year                          | date       | null:false        |
-| birth_month                         | date       | null:false        |
-| birth_day                           | date       | null:false        |
-
-### Association
-
-* belongs_to:user
-
- ## credit_cards table
-
-| Column           | Type       | Options                      |
-|------------------|------------|------------------------------|
-| card_number      | integer    | null:false, unique:true      |
-| expiration_year  | integer    | null:false                   |
-| expiration_month | integer    | null:false                   |
-| security_code    | integer    | null:false                   |
-| user             | references | null:false, foreign_key:true |
-
-### Association
-
-* belongs_to:user
 
  ## user_evaluations table
 
@@ -71,16 +40,12 @@
 
 | Column                       | Type       | Options                        |
 |------------------------------|------------|--------------------------------|
-| destination_first_name       | string     | null: false                    |
-| destination_family_name      | string     | null: false                    |
-| destination_first_name_kana  | string     | null: false                    |
-| destination_family_name_kana | string     | null: false                    |
 | post_code                    | integer(7) | null:false                     |
 | prefecture_code              | integer    | null:false                     |
 | city                         | string     | null:false                     |
 | house_number                 | string     | null:false                     |
 | building_name                | string     |                                |
-| phone_number                 | integer    | unique: true                   |
+| phone_number                 | string     | unique: true                   |
 | user                         | references | null: false, foreign_key: true |
 
 ### Association
