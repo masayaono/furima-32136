@@ -1,24 +1,100 @@
-# README
+# DB設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users table
 
-Things you may want to cover:
+| Column             | Type   | Options                              |
+|--------------------|--------|--------------------------------------|
+| nickname           | string | null:false                           |
+| encrypted_password | string | null:false                           |
+| email              | string | null:false, unique:true, index:true  |
+| first_name         | string | null:false                           |
+| family_name        | string | null:false                           |
+| first_name_kana    | string | null:false                           |
+| family_name_kana   | string | null:false                           |
+| birth_strftime     | date   | null:false                           |
 
-* Ruby version
+### Association
 
-* System dependencies
+* has_many:favorites, dependent: :destroy
+* has_many:purchase_managements
+* has_many:items
 
-* Configuration
+ ## user_evaluations table
 
-* Database creation
+| Column     | Type       | Options                       |
+|------------|------------|-------------------------------|
+| review     | text       | null:false                    |
+| user       | references | null:false, foreign_key: true |
+| item       | references | null:false, foreign_key: true |
+| evaluation | references | null:false, foreign_key: true |
 
-* Database initialization
+### Association
 
-* How to run the test suite
+* belongs_to_active_hash:evaluation
+* belongs_to:user
+* belongs_to:item
 
-* Services (job queues, cache servers, search engines, etc.)
+ ## sending_destinations table
 
-* Deployment instructions
+| Column                       | Type       | Options                        |
+|------------------------------|------------|--------------------------------|
+| post_code                    | string     | null:false                     |
+| prefecture_id                | integer    | null:false                     |
+| city                         | string     | null:false                     |
+| house_number                 | string     | null:false                     |
+| building_name                | string     |                                |
+| phone_number                 | string     | unique: true                   |
+| purchase_management          | references | null: false, foreign_key: true |
 
-* ...
+### Association
+
+* belongs_to :purchase_management
+* Gem：jp_prefectureを使用して都道府県コードを取得
+
+ ## items table
+
+| Column             | Type       | Options                      |
+|--------------------|------------|------------------------------|
+| user               | references | null:false, foreign_key:true |
+| name               | string     | null:false                   |
+| introduction       | text       | null:false                   |
+| price              | integer    | null:false                   |
+| item_condition_id  | integer    | null:false                   |
+| postage_payer_id   | integer    | null:false                   |
+| prefecture_id      | integer    | null:false                   |
+| preparation_day_id | integer    | null:false                   |
+| category_id        | integer    | null:false                   |
+
+### Association
+* belongs_to:user
+* has_many:comments, dependent: :destroy
+* has_many:favorites
+* has_many:item_imgs, dependent: :destroy
+* has_one:user_evaluation
+
+ ## favorites table
+
+
+| Column | Type       | Options                      |
+|--------|------------|------------------------------|
+| user   | references | null:false, foreign_key:true |
+| item   | references | null:false, foreign_key:true |
+
+### Association
+
+* belongs_to :user
+* belongs_to :item
+
+ ## purchase_management table
+
+| Column  | Type    | Options                      |
+|---------|---------|------------------------------|
+| user_id | integer | null:false, foreign_key:true |
+| item_id | integer | null:false, foreign_key:true |
+
+
+### Association
+
+* belongs_to:user
+* belongs_to:item
+* has_one:sending_destination
