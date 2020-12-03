@@ -11,7 +11,7 @@
 | family_name        | string | null:false                           |
 | first_name_kana    | string | null:false                           |
 | family_name_kana   | string | null:false                           |
-| strftime           | date   | null:false                           |
+| birth_strftime     | date   | null:false                           |
 
 ### Association
 
