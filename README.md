@@ -20,6 +20,7 @@
 * has_many:seller_items, foreign_key: "seller_id", class_name: "items"
 * has_many:buyer_items, foreign_key: "buyer_id", class_name: "items"
 * has_one:sending_destination, dependent: :destroy
+* has_many:purchase_management
 
  ## user_evaluations table
 
@@ -46,26 +47,25 @@
 | house_number                 | string     | null:false                     |
 | building_name                | string     |                                |
 | phone_number                 | string     | unique: true                   |
-| user                         | references | null: false, foreign_key: true |
+| purchase_management          | references | null: false, foreign_key: true |
 
 ### Association
 
-* belongs_to :user
+* belongs_to :purchase_management
 * Gem：jp_prefectureを使用して都道府県コードを取得
 
  ## items table
 
-| Column           | Type       | Options                      |
-|------------------|------------|------------------------------|
-| name             | string     | null:false                   |
-| introduction     | text       | null:false                   |
-| price            | integer    | null:false                   |
-| item_condition   | references | null:false, foreign_key:true |
-| postage_payer    | integer    | null:false, foreign_key:true |
-| prefecture_id    | integer    | null:false                   |
-| preparation_day  | integer    | null:false, foreign_key:true |
-| postage_type     | integer    | null:false, foreign_key:true |
-| category         | references | null:false, foreign_key:true |
+| Column             | Type       | Options                      |
+|--------------------|------------|------------------------------|
+| name               | string     | null:false                   |
+| introduction       | text       | null:false                   |
+| price              | integer    | null:false                   |
+| item_condition     | references | null:false, foreign_key:true |
+| postage_payer      | integer    | null:false, foreign_key:true |
+| prefecture_id      | integer    | null:false                   |
+| preparation_day_id | integer    | null:false, foreign_key:true |
+| category_id        | integer    | null:false, foreign_key:true |
 
 ### Association
 * has_many:comments, dependent: :destroy
@@ -89,7 +89,7 @@
 * belongs_to :user
 * belongs_to :item
 
- ## Purchase_management table
+ ## purchase_management table
 
 | Column | Type       | Options                      |
 |--------|------------|------------------------------|
