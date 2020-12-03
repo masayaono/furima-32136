@@ -40,8 +40,8 @@
 
 | Column                       | Type       | Options                        |
 |------------------------------|------------|--------------------------------|
-| post_code                    | integer(7) | null:false                     |
-| prefecture_code              | integer    | null:false                     |
+| post_code                    | string     | null:false                     |
+| prefecture_id                | integer    | null:false                     |
 | city                         | string     | null:false                     |
 | house_number                 | string     | null:false                     |
 | building_name                | string     |                                |
@@ -60,17 +60,12 @@
 | name             | string     | null:false                   |
 | introduction     | text       | null:false                   |
 | price            | integer    | null:false                   |
-| brand            | references | foreign_key:true             |
 | item_condition   | references | null:false, foreign_key:true |
-| postage_payer    | references | null:false, foreign_key:true |
-| prefecture_code  | integer    | null:false                   |
-| preparation_day  | references | null:false, foreign_key:true |
-| postage_type     | references | null:false, foreign_key:true |
-| item_img         | references | null:false, foreign_key:true |
+| postage_payer    | integer    | null:false, foreign_key:true |
+| prefecture_id    | integer    | null:false                   |
+| preparation_day  | integer    | null:false, foreign_key:true |
+| postage_type     | integer    | null:false, foreign_key:true |
 | category         | references | null:false, foreign_key:true |
-| trading_status   | enum       | null:false                   |
-| seller           | references | null:false, foreign_key:true |
-| buyer            | references | foreign_key:true             |
 
 ### Association
 * has_many:comments, dependent: :destroy
@@ -81,23 +76,26 @@
 * belongs_to:seller, class_name: "User"
 * belongs_to:buyer, class_name: "User"
 
-
- ## brands table
-
-| Column | Type   | Options |
-|--------|--------|---------|
-| name   | string |         |
-
-### Association
-
-* has_many:items
-
  ## favorites table
 
 
 | Column | Type       | Options                      |
+|--------|------------|------------------------------|
 | user   | references | null:false, foreign_key:true |
 | item   | references | null:false, foreign_key:true |
+
+### Association
+
+* belongs_to :user
+* belongs_to :item
+
+ ## Purchase_management table
+
+| Column | Type       | Options                      |
+|--------|------------|------------------------------|
+| user   | references | null:false, foreign_key:true |
+| item   | references | null:false, foreign_key:true |
+
 
 ### Association
 
