@@ -16,10 +16,6 @@
 ### Association
 
 * has_many:favorites, dependent: :destroy
-* has_many:user_evaluations
-* has_many:seller_items, foreign_key: "seller_id", class_name: "items"
-* has_many:buyer_items, foreign_key: "buyer_id", class_name: "items"
-* has_one:sending_destination, dependent: :destroy
 * has_many:purchase_managements
 
  ## user_evaluations table
@@ -74,9 +70,6 @@
 * has_many:favorites
 * has_many:item_imgs, dependent: :destroy
 * has_one:user_evaluation
-* belongs_to:brand
-* belongs_to:seller, class_name: "User"
-* belongs_to:buyer, class_name: "User"
 
  ## favorites table
 
@@ -93,14 +86,14 @@
 
  ## purchase_management table
 
-| Column | Type       | Options                      |
-|--------|------------|------------------------------|
-| user   | references | null:false, foreign_key:true |
-| item   | references | null:false, foreign_key:true |
+| Column  | Type       | Options                      |
+|---------|------------|------------------------------|
+| user_id | references | null:false, foreign_key:true |
+| item_id | references | null:false, foreign_key:true |
 
 
 ### Association
 
-* belongs_to :user
-* belongs_to :item
-* belongs_to :sending_destination
+* belongs_to:user
+* belongs_to:item
+* has_one:sending_destination
