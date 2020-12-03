@@ -17,6 +17,7 @@
 
 * has_many:favorites, dependent: :destroy
 * has_many:purchase_managements
+* has_many:items
 
  ## user_evaluations table
 
