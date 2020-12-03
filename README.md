@@ -20,7 +20,7 @@
 * has_many:seller_items, foreign_key: "seller_id", class_name: "items"
 * has_many:buyer_items, foreign_key: "buyer_id", class_name: "items"
 * has_one:sending_destination, dependent: :destroy
-* has_many:purchase_management
+* has_many:purchase_managements
 
  ## user_evaluations table
 
@@ -56,16 +56,16 @@
 
  ## items table
 
-| Column             | Type       | Options                      |
-|--------------------|------------|------------------------------|
-| name               | string     | null:false                   |
-| introduction       | text       | null:false                   |
-| price              | integer    | null:false                   |
-| item_condition     | references | null:false, foreign_key:true |
-| postage_payer      | integer    | null:false, foreign_key:true |
-| prefecture_id      | integer    | null:false                   |
-| preparation_day_id | integer    | null:false, foreign_key:true |
-| category_id        | integer    | null:false, foreign_key:true |
+| Column             | Type       | Options                       |
+|--------------------|------------|-------------------------------|
+| name               | string     | null:false, foreign_key: true |
+| introduction       | text       | null:false, foreign_key: true |
+| price              | integer    | null:false, foreign_key: true |
+| item_condition_id  | integer    | null:false,                   |
+| postage_payer_id   | integer    | null:false,                   |
+| prefecture_id      | integer    | null:false                    |
+| preparation_day_id | integer    | null:false,                   |
+| category_id        | integer    | null:false,                   |
 
 ### Association
 * has_many:comments, dependent: :destroy
@@ -101,3 +101,4 @@
 
 * belongs_to :user
 * belongs_to :item
+* belongs_to :sending_destination
