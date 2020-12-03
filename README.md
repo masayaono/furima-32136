@@ -79,12 +79,6 @@
 * has_many:favorites
 * has_many:item_imgs, dependent: :destroy
 * has_one:user_evaluation
-* belongs_to:category
-* belongs_to_active_hash:size
-* belongs_to_active_hash:item_condition
-* belongs_to_active_hash:postage_payer
-* belongs_to_active_hash:preparation_day
-* belongs_to_active_hash:postage_type
 * belongs_to:brand
 * belongs_to:seller, class_name: "User"
 * belongs_to:buyer, class_name: "User"
@@ -100,17 +94,6 @@
 
 * has_many:items
 
- ## item_imgs table
-
-| Column | Type       | Options                        |
-|--------|------------|--------------------------------|
-| url    | string     | null:false                     |
-| item   | references | null: false, foreign_key: true |
-
-### Association
-
-* belongs_to:item
-
  ## favorites table
 
 
@@ -122,14 +105,3 @@
 
 * belongs_to :user
 * belongs_to :item
-
- ## categories table
-
-| Column   | Type   | Options    |
-|----------|--------|------------|
-| name     | string | null:false |
-| ancestry | string | null:false |
-
-### Association
-
-* has_many :items
