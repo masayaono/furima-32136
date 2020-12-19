@@ -7,7 +7,8 @@ class Item < ApplicationRecord
     validates :prefecture_id
     validates :preparation_day_id
     validates :postage_payer_id
-    validates :price, format: { with: /\A[0-9]+\z/ }, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
+    validates :price, format: { with: /\A[0-9]+\z/ },
+                      numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
     validates :image
   end
 
@@ -18,7 +19,7 @@ class Item < ApplicationRecord
     validates :prefecture_id
     validates :preparation_day_id
   end
-  
+
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
   belongs_to :condition
@@ -27,6 +28,6 @@ class Item < ApplicationRecord
   belongs_to :preparation_day
 
   has_one_attached :image
-  belongs_to:user
+  belongs_to :user
   has_one :purchase, dependent: :destroy
 end
