@@ -12,7 +12,7 @@ class PurchasesController < ApplicationController
   end
 
   def create
-      @item_purchase = ItemPurchase.new(purchase_params)
+    @item_purchase = ItemPurchase.new(purchase_params)
     if @item_purchase.valid?
       pay_item
       @item_purchase.save
@@ -24,12 +24,10 @@ class PurchasesController < ApplicationController
 
   private
 
-  def item
-    item = Item.find(params[:item_id])
-  end
-
   def purchase_params
-    params.require(:item_purchase).permit(:post_code, :prefecture_id, :city, :house_number, :building_name, :phone_number).merge(user_id: current_user.id, item_id: item.id, token: params[:token])
+    params.require(:item_purchase).permit(:post_code, :prefecture_id, :city, :house_number, :building_name, :phone_number).merge(
+      user_id: current_user.id, item_id: item.id, token: params[:token]
+    )
   end
 
   def pay_item
@@ -41,10 +39,7 @@ class PurchasesController < ApplicationController
     )
   end
 
-
   def set_item
     @item = Item.find(params[:item_id])
   end
-
-  
 end
