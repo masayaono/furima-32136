@@ -2,6 +2,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  validates :email, uniqueness: true
   validates :password, length: { minimum: 6 },
                        format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i }
   with_options presence: true do
@@ -21,4 +22,8 @@ class User < ApplicationRecord
     validates :first_name_kana
     validates :family_name_kana
   end
+
+  has_many :items
+  has_one :purchase, dependent: :destroy
+  has_one :house_number, dependent: :destroy
 end
