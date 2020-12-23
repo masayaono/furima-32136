@@ -2,7 +2,7 @@ class PurchasesController < ApplicationController
   before_action :authenticate_user!, only: [:index, :create]
   before_action :set_item, only: [:index, :create]
   def index
-    if item.purchase.present?
+    if @item.purchase.present?
       redirect_to items_path
     elsif current_user.id != @item.user_id
       @item_purchase = ItemPurchase.new
